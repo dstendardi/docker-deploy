@@ -2,6 +2,8 @@ from flask import abort, Flask
 from git import Git
 from git import Repo
 from docker import Client
+from subprocess import call
+
 import os
 
 app = Flask(__name__)
@@ -32,11 +34,7 @@ def main(token, commit):
   res = docker.push('artquid/artquid')
 
   print "Listing docker image"
-  containers = docker.containers()
-  for container in containers:
-    if os.getenv("CONTAINER") in container['Names']:
-      print "Found running container, restarting"
-      res = docker.restart(container['Id'])
+  call(["maestro", "-f", "/repository/checkout/demo.yaml", "restart", os.getenv("CONTAINER"), "-f"])
 
   return "OK"
 
