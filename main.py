@@ -28,7 +28,7 @@ def main(token, commit):
   print "Building docker image"
   docker = Client(base_url='unix://mount/run/docker.sock')
   docker.login(username=os.getenv("DOCKER_REGISTRY_USERNAME"), password=os.getenv("DOCKER_REGISTRY_PASSWORD"), email=os.getenv("DOCKER_REGISTRY_EMAIL", "foo@bar.fr"))
-  docker.build(path=working_copy)  
+  docker.build(path=working_copy, tag=os.getenv("IMAGE_NAME"))  
 
   print "Pushing docker image"
   res = docker.push('artquid/artquid')
