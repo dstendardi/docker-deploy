@@ -34,7 +34,7 @@ def main(token, commit):
   res = docker.push('artquid/artquid')
 
   print "Listing docker image"
-  check_call(["maestro", "-f", "/repository/checkout/demo.yaml", "restart", os.getenv("CONTAINER"), "-f"])
+  check_call(["maestro", "-f", "/repository/checkout/demo.yaml", "restart", os.getenv("CONTAINER")])
 
   return "OK"
 
