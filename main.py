@@ -12,7 +12,7 @@ def main(token, commit):
   if token != os.getenv("TOKEN"):
     abort(401)  
 
-  working_copy = "/repository"
+  working_copy = "/repository/checkout"
   if not os.path.isdir(working_copy):
     os.mkdir(working_copy)
     Git().clone(os.getenv("GIT_REPOSITORY_URL"), working_copy)
