@@ -2,7 +2,7 @@ from flask import abort, Flask
 from git import Git
 from git import Repo
 from docker import Client
-from subprocess import call
+from subprocess import check_call
 
 import os
 
