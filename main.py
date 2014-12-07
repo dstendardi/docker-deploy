@@ -34,7 +34,7 @@ def main(token, commit):
   print "Listing docker image"
   containers = docker.containers()
   for container in containers:
-    if "/apache" in container['Names']:
+    if os.getenv("CONTAINER") in container['Names']:
       print "Found running container, restarting"
       res = docker.restart(container['Id'])
 
