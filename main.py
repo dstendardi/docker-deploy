@@ -37,7 +37,7 @@ def main(token, commit):
   res = docker.push(os.getenv("IMAGE_NAME"))
 
   print "Listing docker image"
-  check_call(os.getenv('DEPLOY_CMD'), Shell=True)
+  check_call(os.getenv('DEPLOY_CMD'), shell=True)
 
   return "OK"
 
