@@ -31,10 +31,13 @@ def main(token, commit):
   before_build = os.getenv('BEFORE_BUILD_CMD')
   if before_build is not None:
     check_call(before_build, shell=True)  
-  docker.build(path=working_copy, tag=os.getenv("IMAGE_NAME"))  
+  
+  for line in docker.build(path=working_copy, tag=os.getenv("IMAGE_NAME"), stream=True):
+    print line
 
   print "Pushing docker image"
-  res = docker.push(os.getenv("IMAGE_NAME"), tag="latest")
+  for line in docker.push(os.getenv("IMAGE_NAME"), stream=True):
+    print line
 
   print "Listing docker image"
   check_call(os.getenv('DEPLOY_CMD'), shell=True)
