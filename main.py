@@ -34,7 +34,7 @@ def main(token, commit):
   docker.build(path=working_copy, tag=os.getenv("IMAGE_NAME"))  
 
   print "Pushing docker image"
-  res = docker.push(os.getenv("IMAGE_NAME"))
+  res = docker.push(os.getenv("IMAGE_NAME"), tag="latest")
 
   print "Listing docker image"
   check_call(os.getenv('DEPLOY_CMD'), shell=True)
