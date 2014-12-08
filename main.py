@@ -28,13 +28,16 @@ def main(token, commit):
   print "Building docker image"
   docker = Client(base_url='unix://mount/run/docker.sock')
   docker.login(username=os.getenv("DOCKER_REGISTRY_USERNAME"), password=os.getenv("DOCKER_REGISTRY_PASSWORD"), email=os.getenv("DOCKER_REGISTRY_EMAIL", "foo@bar.fr"))
+  before_build = os.getenv('BEFORE_BUILD_CMD'):
+  if before_build is not None:
+    check_call(before_build, shell=True)  
   docker.build(path=working_copy, tag=os.getenv("IMAGE_NAME"))  
 
   print "Pushing docker image"
   res = docker.push(os.getenv("IMAGE_NAME"))
 
   print "Listing docker image"
-  check_call(["maestro", "-f", "/repository/checkout/demo.yaml", "restart", os.getenv("CONTAINER")])
+  check_call(os.getenv('DEPLOY_CMD'), Shell=True)
 
   return "OK"
 
